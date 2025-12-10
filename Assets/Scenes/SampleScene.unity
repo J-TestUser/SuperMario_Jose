@@ -6045,8 +6045,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
   movementSpeed: 5
-  direction: 1
+  jumpForce: 50
   moveDirection: {x: 0, y: 0}
+  rBody2D: {fileID: 0}
 --- !u!1 &238214971
 GameObject:
   m_ObjectHideFlags: 0
