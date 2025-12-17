@@ -11,22 +11,27 @@ public class PlayerController : MonoBehaviour
 
     private InputAction moveAction;
     public Vector2 moveDirection;
+    private InputAction jumpAction;
 
     public Rigidbody2D rBody2D;
+    private SpriteRenderer renderer;
+    private GroundSensor sensor;
 
     void Awake()
     {
-        rBody2D = GetComponent<Rigidbody2D>();
+        rBody2D = GetComponent<Rigidbody2D>(); //Asignamos el componente RigidBody2D a la variable rBody2D
+        renderer = GetComponent<SpriteRenderer>();
+        sensor = GetComponentInChildren<GroundSensor>(); //GetComponentInChildren busca un componente de entre los hijos del objeto que tiene este script
+
+        moveAction = InputSystem.actions["Move"]; //Asignamos el input move a la variable
+        jumpAction = InputSystem.actions["Jump"]; //Asignamos el input Jump  a la variable
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       transform.position = startPosition; 
-
-       moveAction = InputSystem.actions["Move"];
-
-       rBody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+       transform.position = startPosition;
+       
     }
 
     // Update is called once per frame
@@ -47,5 +52,23 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(new Vector3(moveDirection.x *movementSpeed*Time.deltaTime,0,0));
 
         //transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + moveDirection.x, transform.position.y), movementSpeed * Time.deltaTime);
+        if(moveDirection.x > 0)
+        {
+            renderer.flipX = false;
+        }
+        else if(moveDirection.x < 0)
+        {
+            renderer.flipX = true;
+        }
+       
+
+        if(jumpAction.WasPressedThisFrame() && sensor.isGrounded)
+        {
+            rBody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+    }
+    void FixedUpdate()
+    {
+        rBody2D.linearVelocity = new Vector2(moveDirection.x * movementSpeed, rBody2D.linearVelocity.y);
     }
 }
