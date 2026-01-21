@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rBody2D;
     private SpriteRenderer renderer;
     private GroundSensor sensor;
+    private Animator animator;
 
     void Awake()
     {
         rBody2D = GetComponent<Rigidbody2D>(); //Asignamos el componente RigidBody2D a la variable rBody2D
         renderer = GetComponent<SpriteRenderer>();
         sensor = GetComponentInChildren<GroundSensor>(); //GetComponentInChildren busca un componente de entre los hijos del objeto que tiene este script
+        animator = GetComponent<Animator>();
 
         moveAction = InputSystem.actions["Move"]; //Asignamos el input move a la variable
         jumpAction = InputSystem.actions["Jump"]; //Asignamos el input Jump  a la variable
@@ -55,17 +57,25 @@ public class PlayerController : MonoBehaviour
         if(moveDirection.x > 0)
         {
             renderer.flipX = false;
+            animator.SetBool("IsRunning", true);
         }
         else if(moveDirection.x < 0)
         {
             renderer.flipX = true;
+            animator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            animator.SetBool("IsRunning", false);
         }
        
 
         if(jumpAction.WasPressedThisFrame() && sensor.isGrounded)
         {
             rBody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            
         }
+        animator.SetBool("IsJumping", !sensor.isGrounded);
     }
     void FixedUpdate()
     {

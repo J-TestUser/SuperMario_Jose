@@ -10,6 +10,10 @@ public class GroundSensor : MonoBehaviour
     {
         isGrounded = true;
     }
+    if(collision.gameObject.layer == 7)
+    {
+        Destroy(collision.gameObject);
+    }
  }
 void OnTriggerStay2D (Collider2D collision)
  {
