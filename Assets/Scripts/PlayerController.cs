@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
             
         }
         animator.SetBool("IsJumping", !sensor.isGrounded);
+
     }
     void FixedUpdate()
     {

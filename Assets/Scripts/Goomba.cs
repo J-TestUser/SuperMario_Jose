@@ -7,10 +7,12 @@ public class Goomba : MonoBehaviour
 
     public float movementSpeed = 4;
     public int direction = 1;
+    private Animator animator;
 
     void Awake()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,6 +30,7 @@ public class Goomba : MonoBehaviour
     void FixedUpdate()
     {
         _rigidBody2D.linearVelocity = new Vector2(direction * movementSpeed, _rigidBody2D.linearVelocity.y);
+        animator.SetBool("Is Walking", true);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -41,6 +44,7 @@ public class Goomba : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Player"))
         {
+        
             Destroy(collision.gameObject);
         }
     }
