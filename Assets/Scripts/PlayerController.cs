@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
 
     public float jumpForce = 1;
+    public float bounceForce=3;
 
 
     private InputAction moveAction;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rBody2D.linearVelocity = new Vector2(moveDirection.x * movementSpeed, rBody2D.linearVelocity.y);
         //transform.position = new Vector3(transform.position.x + direction * movementSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 
         //transform.Translate(new Vector3(direction * movementSpeed *Time.deltaTime, 0, 0));
@@ -78,8 +80,8 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsJumping", !sensor.isGrounded);
 
     }
-    void FixedUpdate()
+    public void Bounce()
     {
-        rBody2D.linearVelocity = new Vector2(moveDirection.x * movementSpeed, rBody2D.linearVelocity.y);
+        rBody2D.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
 }
