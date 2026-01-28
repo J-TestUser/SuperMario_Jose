@@ -54,7 +54,9 @@ public class Goomba : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
+            PlayerController _marioDeathScript = collision.gameObject.GetComponent<PlayerController>();
+            _marioDeathScript.MarioDeath();
+            //Destroy(collision.gameObject);
         }
     }
     public void DeadGoomba()
@@ -68,6 +70,7 @@ public class Goomba : MonoBehaviour
         animator.SetTrigger("Is Dead");
 
         Destroy (gameObject,3);
+        
         _gameManager.AddKill();
     }
 }

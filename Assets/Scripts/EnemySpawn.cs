@@ -41,7 +41,7 @@ public class EnemySpawn : MonoBehaviour
             //Instantiate (prefabEnemy, spawnpoints[0].position, Quaternion.identity); //genera una instancia de el enemigo y lo hace spawnear en la posición determinada por el objeto spawn position. El número entre los corchetes determina el elemento de la lista del array que queremos utilizar.
             foreach (Transform item in spawnPoints)
             {
-                Instantiate (prefabEnemy[Random.Range(0, 2)], item.position, Quaternion.identity);
+                Instantiate (prefabEnemy[Random.Range(0, prefabEnemy.Length)], item.position, Quaternion.identity);
             }
             yield return new WaitForSeconds(0.5f); //determinamos con return que se detiene la corrutina, para luego volver a iniciarse al pasar 0,5 segundos
         }

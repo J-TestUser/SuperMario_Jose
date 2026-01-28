@@ -7,8 +7,12 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
 
     public float jumpForce = 1;
-    public float bounceForce=3;
+    public float bounceForce= 3;
+    private AudioSource _audioSource;
+    private BoxCollider2D _boxCollider;
 
+    public AudioClip jump;
+    public AudioClip deathSFX;
 
     private InputAction moveAction;
     public Vector2 moveDirection;
@@ -18,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer renderer;
     private GroundSensor sensor;
     private Animator animator;
+    private BGMManager _bgmManager;
 
     void Awake()
     {
@@ -25,6 +30,10 @@ public class PlayerController : MonoBehaviour
         renderer = GetComponent<SpriteRenderer>();
         sensor = GetComponentInChildren<GroundSensor>(); //GetComponentInChildren busca un componente de entre los hijos del objeto que tiene este script
         animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+        _boxCollider = GetComponent<BoxCollider2D>();
+
+        _bgmManager = GameObject.Find("BGM Manager").GetComponent<BGMManager>();
 
         moveAction = InputSystem.actions["Move"]; //Asignamos el input move a la variable
         jumpAction = InputSystem.actions["Jump"]; //Asignamos el input Jump  a la variable
@@ -75,6 +84,7 @@ public class PlayerController : MonoBehaviour
         if(jumpAction.WasPressedThisFrame() && sensor.isGrounded)
         {
             rBody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            _audioSource.PlayOneShot(jump);
             
         }
         animator.SetBool("IsJumping", !sensor.isGrounded);
@@ -83,5 +93,22 @@ public class PlayerController : MonoBehaviour
     public void Bounce()
     {
         rBody2D.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
+    }
+
+    public void MarioDeath()
+    {        
+        movementSpeed = 0;
+
+        _audioSource.PlayOneShot(deathSFX);
+        
+        _boxCollider.enabled = false;
+
+        animator.SetTrigger("IsDead");
+        
+        _bgmManager.StopBGM();
+
+        Destroy (gameObject,3);
+
+
     }
 }

@@ -18,7 +18,11 @@ public class BGMManager : MonoBehaviour
     void PlayBGM()
     {
        fuenteAudio.loop= true;
-       fuenteAudio. clip = gameBGM;
+       fuenteAudio.clip = gameBGM;
        fuenteAudio.Play();
+    }
+    public void StopBGM()
+    {
+        fuenteAudio.Stop();
     }
 }
