@@ -60,6 +60,7 @@ public class Goomba : MonoBehaviour
     public void DeadGoomba()
     {
         _audioSource.PlayOneShot(deadSFX);
+        
         movementSpeed = 0;
 
         _boxCollider.enabled = false;

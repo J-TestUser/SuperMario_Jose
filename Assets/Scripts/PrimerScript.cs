@@ -11,11 +11,13 @@ public class PrimerScript : MonoBehaviour
     private char letra = 'a';
     //Variable para almacenar letras
 
+    private int[] intArray = new int[5]{1, 9, 5 , 4, 3};
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         numeroEntero = 37;   
-
+        intArray [2] = 8;
         cadenaTexto = "Hola Mundo";
 
         Debug.Log(cadenaTexto + " y Adiós!");
