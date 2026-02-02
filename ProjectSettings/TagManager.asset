@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tuberias
   - Goomba
+  - Coin
   layers:
   - Default
   - TransparentFX

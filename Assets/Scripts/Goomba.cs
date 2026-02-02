@@ -59,6 +59,15 @@ public class Goomba : MonoBehaviour
             //Destroy(collision.gameObject);
         }
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Tuberias") || collision.gameObject.layer == 7)
+        {
+            //Esto hacec lo mismo que la linea de abajo pero de forma mas intuitiva
+            //direction = direction * -1;
+            direction *= -1;
+        }   
+    }
     public void DeadGoomba()
     {
         _audioSource.PlayOneShot(deadSFX);

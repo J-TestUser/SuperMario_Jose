@@ -3,8 +3,8 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 
 {
-    public BoxCollider2D _boxCollider;
-    public AudioSource _audioSource;
+    private BoxCollider2D _boxCollider;
+    private AudioSource _audioSource;
 
     public AudioClip coinSounds;
 
@@ -15,6 +15,8 @@ public class Coin : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider2D>();
         _audioSource = GetComponent<AudioSource>();
         coinSounds = GetComponent<AudioClip>();   
+
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class Coin : MonoBehaviour
     {
         
     }
-    void GetCoin()
+    public void GetCoin()
     {
         _audioSource.PlayOneShot(coinSounds);
 
