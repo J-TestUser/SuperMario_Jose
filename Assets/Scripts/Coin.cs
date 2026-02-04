@@ -30,7 +30,7 @@ public class Coin : MonoBehaviour
 
         _boxCollider.enabled = false;
 
-        Destroy (gameObject);
+        Destroy (gameObject,0.2f);
         
         _gameManager.AddCoin();
     }
