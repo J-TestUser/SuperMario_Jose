@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private GroundSensor sensor;
     private Animator animator;
     private BGMManager _bgmManager;
-    private Coin _coin;
+    //private Coin _coin;
 
     void Awake()
     {
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider2D>();
 
         _bgmManager = GameObject.Find("BGM Manager").GetComponent<BGMManager>();
-        _coin = GameObject.Find("Coin").GetComponent<Coin>();
+        //_coin = GameObject.Find("Coin").GetComponent<Coin>();
 
         moveAction = InputSystem.actions["Move"]; //Asignamos el input move a la variable
         jumpAction = InputSystem.actions["Jump"]; //Asignamos el input Jump  a la variable
@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Coin"))
         {
+            Coin _coin = collision.gameObject.GetComponent<Coin>();
             _coin.GetCoin();
         }
     }

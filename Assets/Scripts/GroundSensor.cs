@@ -21,6 +21,10 @@ void Awake()
         _enemyScript.DeadGoomba();
         //Destroy(collision.gameObject);
     }
+   /* if(collision.gameObject.CompareTag("Player"))
+    {
+        
+    }*/
  }
 void OnTriggerStay2D (Collider2D collision)
  {
