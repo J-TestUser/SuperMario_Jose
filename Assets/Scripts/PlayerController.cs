@@ -17,12 +17,14 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     public Vector2 moveDirection;
     private InputAction jumpAction;
+    private InputAction pauseAction;
 
     public Rigidbody2D rBody2D;
     private SpriteRenderer renderer;
     private GroundSensor sensor;
     private Animator animator;
     private BGMManager _bgmManager;
+    private GameManager _gameManager;
     //private Coin _coin;
 
     void Awake()
@@ -34,11 +36,13 @@ public class PlayerController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _boxCollider = GetComponent<BoxCollider2D>();
 
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _bgmManager = GameObject.Find("BGM Manager").GetComponent<BGMManager>();
         //_coin = GameObject.Find("Coin").GetComponent<Coin>();
 
         moveAction = InputSystem.actions["Move"]; //Asignamos el input move a la variable
         jumpAction = InputSystem.actions["Jump"]; //Asignamos el input Jump  a la variable
+        pauseAction = InputSystem.actions["Pause"];
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,6 +55,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(pauseAction.WasPressedThisFrame())
+        {
+            _gameManager.Pause();
+        }
+
+        if (_gameManager._pause == true)//Si pausamos el juego, todo lo que hay debajo de esta linea de codigo deja de ejecutarse
+        {
+            return;
+        }
         rBody2D.linearVelocity = new Vector2(moveDirection.x * movementSpeed, rBody2D.linearVelocity.y);
         //transform.position = new Vector3(transform.position.x + direction * movementSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 
@@ -90,6 +103,7 @@ public class PlayerController : MonoBehaviour
             
         }
         animator.SetBool("IsJumping", !sensor.isGrounded);
+
 
     }
     public void Bounce()
