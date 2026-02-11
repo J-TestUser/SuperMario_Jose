@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
 
     public float jumpForce = 1;
-    public float bounceForce= 3;
+    public float bounceForce= 5;
     private AudioSource _audioSource;
     private BoxCollider2D _boxCollider;
 
@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Bounce()
     {
+        rBody2D.linearVelocity = new Vector2(rBody2D.linearVelocity.x, 0);
         rBody2D.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
 

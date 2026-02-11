@@ -1,5 +1,6 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Goomba : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class Goomba : MonoBehaviour
 
     private GameManager _gameManager;
 
+    private int _goombaHealth =3;
+    private Slider _goombaHealthSlider;
+
     void Awake()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
@@ -23,12 +27,14 @@ public class Goomba : MonoBehaviour
         animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _goombaHealthSlider = GetComponentInChildren<Slider>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+       _goombaHealthSlider.maxValue = _goombaHealth; 
+       _goombaHealthSlider.value = _goombaHealth;
     }
 
     // Update is called once per frame
@@ -59,6 +65,7 @@ public class Goomba : MonoBehaviour
             //Destroy(collision.gameObject);
         }
     }
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Tuberias") || collision.gameObject.layer == 7)
@@ -67,6 +74,18 @@ public class Goomba : MonoBehaviour
             //direction = direction * -1;
             direction *= -1;
         }   
+    }
+    
+    public void TakeDamage()
+    {
+        _goombaHealth--;
+        _goombaHealthSlider.value = _goombaHealth;
+
+        if(_goombaHealth <=0)
+        {
+            DeadGoomba();
+        }
+
     }
     public void DeadGoomba()
     {

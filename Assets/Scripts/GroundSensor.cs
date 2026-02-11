@@ -7,7 +7,7 @@ public class GroundSensor : MonoBehaviour
 
 void Awake()
 {
-    _playerController = GetComponent<PlayerController>();
+    _playerController = GetComponentInParent<PlayerController>();
 }
  void OnTriggerEnter2D (Collider2D collision)
  {
@@ -17,8 +17,11 @@ void Awake()
     }
     if(collision.gameObject.layer == 7)
     {
+        _playerController.Bounce();
+
         Goomba _enemyScript = collision.gameObject.GetComponent<Goomba>();
-        _enemyScript.DeadGoomba();
+        _enemyScript.TakeDamage();
+
         //Destroy(collision.gameObject);
     }
    /* if(collision.gameObject.CompareTag("Player"))

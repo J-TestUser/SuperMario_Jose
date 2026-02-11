@@ -10,7 +10,11 @@ public class GameManager : MonoBehaviour
 
     public Text goombaText;
     public Text coinText;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Text gamingTime;
+    public GameObject pauseCanvas;
+    public int gameTime = 0;
+
+
 
     public void AddKill()
     {
@@ -37,7 +41,12 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             _pause = false;
         }
+        pauseCanvas.SetActive(_pause);//cojemos el valor de _pause.
         //Time.timeScale = 1; //reanuda el timepo del juego
         //Time.timeScale = 0.5 // ralentiza el tiempo dentro del juego
+    }
+    public void Chrono()
+    {
+        gameTime++;
     }
 }
