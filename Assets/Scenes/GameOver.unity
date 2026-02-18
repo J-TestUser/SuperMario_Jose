@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 232626689}
   - component: {fileID: 232626688}
   m_Layer: 5
-  m_Name: Main Menu text
+  m_Name: Restart text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1644623692}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &775118814
@@ -610,7 +610,7 @@ GameObject:
   - component: {fileID: 1521013335}
   - component: {fileID: 1521013334}
   m_Layer: 5
-  m_Name: Main Menu Button (1)
+  m_Name: Restart button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633,7 +633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -346.53}
+  m_AnchoredPosition: {x: 0, y: -269}
   m_SizeDelta: {x: 386.1, y: 132.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1521013334
@@ -766,7 +766,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -191.9}
+  m_AnchoredPosition: {x: 0, y: -88}
   m_SizeDelta: {x: 350, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1644623694
