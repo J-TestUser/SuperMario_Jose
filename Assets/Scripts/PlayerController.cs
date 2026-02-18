@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
         StartCoroutine(_gameManager.GameOver());
 
-        Destroy (gameObject,3);
+        Destroy (gameObject,3.2f);
 
         
 
