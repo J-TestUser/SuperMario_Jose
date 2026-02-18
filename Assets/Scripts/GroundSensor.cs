@@ -4,10 +4,12 @@ public class GroundSensor : MonoBehaviour
 {
  public bool isGrounded;
  PlayerController _playerController;
+ private BoxCollider2D _deathZone;
 
 void Awake()
 {
     _playerController = GetComponentInParent<PlayerController>();
+    _deathZone = GameObject.Find("DeathZone").GetComponent<BoxCollider2D>();
 }
  void OnTriggerEnter2D (Collider2D collision)
  {
@@ -23,6 +25,12 @@ void Awake()
         _enemyScript.TakeDamage();
 
         //Destroy(collision.gameObject);
+    }
+    if(collision.gameObject.CompareTag("DeathZone"))
+    {
+        _playerController.Bounce();
+        _playerController.MarioDeath();
+        _deathZone.enabled = false;
     }
    /* if(collision.gameObject.CompareTag("Player"))
     {

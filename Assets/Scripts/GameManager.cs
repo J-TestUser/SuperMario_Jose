@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI; //necesario para poder trabajar con elemento de UI
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +14,25 @@ public class GameManager : MonoBehaviour
     public Text gamingTime;
     public GameObject pauseCanvas;
     public int gameTime = 0;
+    public SceneLoader _sceneLoader;
+    public string gameOverScene;
 
+    void Awake()
+    {
+        _sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+    }
+
+    public IEnumerator GameOver()
+    {    
+        yield return new WaitForSeconds(3);
+        _sceneLoader.ChangeScene(gameOverScene);
+        
+    }
+    
+    /*public void GameOver()
+    {
+        _sceneLoader.ChangeScene(gameOverScene);
+    }*/
 
 
     public void AddKill()

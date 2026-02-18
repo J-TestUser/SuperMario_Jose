@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -124,7 +125,12 @@ public class PlayerController : MonoBehaviour
         
         _bgmManager.StopBGM();
 
+        StartCoroutine(_gameManager.GameOver());
+
         Destroy (gameObject,3);
+
+        
+
 
 
     }
