@@ -8,14 +8,17 @@ public class GameManager : MonoBehaviour
     public int coinCount = 0;
 
     public bool _pause;
+    public bool _victory;
 
     public Text goombaText;
     public Text coinText;
     public Text gamingTime;
     public GameObject pauseCanvas;
+    public GameObject victoryCanvas;
     public int gameTime = 0;
     public SceneLoader _sceneLoader;
     public string gameOverScene;
+    public string victoryScene;
 
     void Awake()
     {
@@ -48,6 +51,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public IEnumerator Victory()
+    {
+        yield return new WaitForSeconds(3);
+       _sceneLoader.ChangeScene(victoryScene);
+    }
     public void Pause()
     {
         if (_pause == false) //cuando el juego NO esté pausado y se ejecute la función
