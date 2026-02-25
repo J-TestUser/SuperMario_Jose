@@ -8,7 +8,10 @@ public class GameManager : MonoBehaviour
     public int coinCount = 0;
 
     public bool _pause;
-    public bool _victory;
+    public bool _victory = false;
+
+    public Button pauseButton;
+    public Button winButton;
 
     public Text goombaText;
     public Text coinText;
@@ -18,11 +21,12 @@ public class GameManager : MonoBehaviour
     public int gameTime = 0;
     public SceneLoader _sceneLoader;
     public string gameOverScene;
-    public string victoryScene;
+    //public string victoryScene;
 
     void Awake()
     {
         _sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+        victoryCanvas = GameObject.Find("VictoryCanvas").GetComponent<GameObject>();
     }
 
     public IEnumerator GameOver()
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         defeatedEnemies++;
         goombaText.text = "x"+ defeatedEnemies.ToString();
+        
     }
 
     public void AddCoin()
@@ -51,10 +56,25 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public IEnumerator Victory()
+    /*public IEnumerator Victory()
     {
         yield return new WaitForSeconds(3);
        _sceneLoader.ChangeScene(victoryScene);
+    }*/
+
+    public IEnumerator Victory()
+    {
+        yield return new WaitForSeconds(3);
+        if (_victory == false)
+        {
+            _victory = true;
+            winButton.Select();
+        }
+        else
+        {
+            _victory = false;
+        }
+        victoryCanvas.SetActive(_victory);
     }
     public void Pause()
     {
@@ -62,6 +82,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0;
             _pause = true;
+            pauseButton.Select();
         }
         else
         {

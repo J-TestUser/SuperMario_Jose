@@ -65,7 +65,9 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        rBody2D.linearVelocity = new Vector2(moveDirection.x * movementSpeed, rBody2D.linearVelocity.y);
+
+         moveDirection = moveAction.ReadValue<Vector2>();//le asignamos a la variable moveDirection el valor que nos de la variable moveaction en formtao vector2
+
         //transform.position = new Vector3(transform.position.x + direction * movementSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 
         //transform.Translate(new Vector3(direction * movementSpeed *Time.deltaTime, 0, 0));
@@ -73,8 +75,6 @@ public class PlayerController : MonoBehaviour
         //transform.position = Vector2.MoveTowards(transform.position, finalPosition + new Vector3(10,0,0), movementSpeed *Time.deltaTime);
 
         //transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + direction, transform.position.y), movementSpeed * Time.deltaTime);
-
-        moveDirection = moveAction.ReadValue<Vector2>();
 
         //transform.position = new Vector3(transform.position.x + moveDirection.x *movementSpeed *Time.deltaTime, transform.position.y, transform.position.z);
 
@@ -107,6 +107,11 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    void FixedUpdate()
+    {
+        rBody2D.linearVelocity = new Vector2(moveDirection.x * movementSpeed, rBody2D.linearVelocity.y);
+    }
+
     public void Bounce()
     {
         rBody2D.linearVelocity = new Vector2(rBody2D.linearVelocity.x, 0);
@@ -129,11 +134,9 @@ public class PlayerController : MonoBehaviour
 
         Destroy (gameObject,3.2f);
 
-        
-
-
-
     }
+
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Coin"))
