@@ -20,6 +20,8 @@ public class Goomba : MonoBehaviour
     private int _goombaHealth =3;
     private Slider _goombaHealthSlider;
 
+    
+
     void Awake()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
@@ -46,6 +48,7 @@ public class Goomba : MonoBehaviour
     void FixedUpdate()
     {
         _rigidBody2D.linearVelocity = new Vector2(direction * movementSpeed, _rigidBody2D.linearVelocity.y);
+
         animator.SetBool("Is Walking", true);
     }
 
@@ -76,10 +79,12 @@ public class Goomba : MonoBehaviour
         }   
     }
     
-    public void TakeDamage()
+    public void TakeDamage(int damage, Vector3 impactDirection, float impactForce)
     {
-        _goombaHealth--;
+        _goombaHealth -= damage;
         _goombaHealthSlider.value = _goombaHealth;
+        
+        _rigidBody2D.AddForce(impactDirection * impactForce, ForceMode2D.Impulse);
 
         if(_goombaHealth <=0)
         {

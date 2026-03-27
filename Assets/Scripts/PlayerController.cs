@@ -30,6 +30,12 @@ public class PlayerController : MonoBehaviour
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+
+    public GameObject attackHitbox;
+
+    private bool _canShoot = false;
+    private float _powerUpDuration = 10;
+    private float _powerUpTimer;
     //private Coin _coin;
 
     void Awake()
@@ -113,9 +119,16 @@ public class PlayerController : MonoBehaviour
         }
         animator.SetBool("IsJumping", !sensor.isGrounded);
 
-        if (shootAction.WasPressedThisFrame())
+        if (shootAction.WasPressedThisFrame() && _canShoot)
         {
             Shoot();
+            //Attack();
+            //animator.SetTrigger("Attack");
+        }
+        
+        if(_canShoot)
+        {
+            ShootPowerUp();
         }
 
 
@@ -157,11 +170,38 @@ public class PlayerController : MonoBehaviour
             Coin _coin = collision.gameObject.GetComponent<Coin>();
             _coin.GetCoin();
         }
+        if (collision.gameObject.CompareTag("PowerUp"))
+        {
+            _powerUpTimer = 0;
+            _canShoot = true;
+        }
     }
 
     void Shoot()
     {
         Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+    }
+
+    void ShootPowerUp()
+    {
+        _powerUpTimer += Time.deltaTime;
+
+        if(_powerUpTimer >= _powerUpDuration)
+        {
+            _canShoot = false;
+        }
+    }
+
+    void Attack()
+    {
+        if (attackHitbox.activeInHierarchy)
+        {
+            attackHitbox.SetActive(false);
+        }
+        else
+        {
+            attackHitbox.SetActive(true);
+        }
     }
 
 }

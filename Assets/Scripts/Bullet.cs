@@ -6,6 +6,9 @@ public class Bullet : MonoBehaviour
 
     public float bulletSpeed = 10;
 
+    public int bulletDamage = 1;
+    public float bulletImpactForce = 10;
+
     void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
@@ -28,7 +31,7 @@ public class Bullet : MonoBehaviour
         if(collision.gameObject.layer == 7)
         {
         Goomba _enemyScript = collision.gameObject.GetComponent<Goomba>();
-        _enemyScript.TakeDamage();
+        _enemyScript.TakeDamage(bulletDamage, transform.right, bulletImpactForce);
         }
 
         Destroy(gameObject);        

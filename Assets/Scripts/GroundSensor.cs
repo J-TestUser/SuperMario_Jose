@@ -5,6 +5,7 @@ public class GroundSensor : MonoBehaviour
  public bool isGrounded;
  PlayerController _playerController;
  public BoxCollider2D[] _deathZone;
+ public int jumpDamage = 3;
 
 void Awake()
 {
@@ -22,7 +23,7 @@ void Awake()
         _playerController.Bounce();
 
         Goomba _enemyScript = collision.gameObject.GetComponent<Goomba>();
-        _enemyScript.TakeDamage();
+        _enemyScript.TakeDamage(jumpDamage, Vector3.zero, 0);
 
         //Destroy(collision.gameObject);
     }
