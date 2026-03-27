@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveDirection;
     private InputAction jumpAction;
     private InputAction pauseAction;
+    private InputAction shootAction;
 
     public Rigidbody2D rBody2D;
     private SpriteRenderer renderer;
@@ -26,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private BGMManager _bgmManager;
     private GameManager _gameManager;
+
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
     //private Coin _coin;
 
     void Awake()
@@ -44,6 +48,7 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions["Move"]; //Asignamos el input move a la variable
         jumpAction = InputSystem.actions["Jump"]; //Asignamos el input Jump  a la variable
         pauseAction = InputSystem.actions["Pause"];
+        shootAction = InputSystem.actions["Attack"];
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -66,7 +71,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-         moveDirection = moveAction.ReadValue<Vector2>();//le asignamos a la variable moveDirection el valor que nos de la variable moveaction en formtao vector2
+         moveDirection = moveAction.ReadValue<Vector2>();
+         
+         //le asignamos a la variable moveDirection el valor que nos de la variable moveaction en formtao vector2
 
         //transform.position = new Vector3(transform.position.x + direction * movementSpeed * Time.deltaTime, transform.position.y, transform.position.z);
 
@@ -83,12 +90,13 @@ public class PlayerController : MonoBehaviour
         //transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + moveDirection.x, transform.position.y), movementSpeed * Time.deltaTime);
         if(moveDirection.x > 0)
         {
-            renderer.flipX = false;
+            //renderer.flipX = false;
+            transform.rotation = Quaternion.Euler(0,0,0);
             animator.SetBool("IsRunning", true);
         }
         else if(moveDirection.x < 0)
         {
-            renderer.flipX = true;
+            transform.rotation = Quaternion.Euler(0,180,0);
             animator.SetBool("IsRunning", true);
         }
         else
@@ -104,6 +112,11 @@ public class PlayerController : MonoBehaviour
             
         }
         animator.SetBool("IsJumping", !sensor.isGrounded);
+
+        if (shootAction.WasPressedThisFrame())
+        {
+            Shoot();
+        }
 
 
     }
@@ -145,11 +158,10 @@ public class PlayerController : MonoBehaviour
             _coin.GetCoin();
         }
     }
-    /*void OnCollisionEnter2D(Collision2D collision)
+
+    void Shoot()
     {
-        if(collision.gameObject.CompareTag("Coin"))
-        {
-            _coin.GetCoin();
-        }
-    }*/
+        Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+    }
+
 }
