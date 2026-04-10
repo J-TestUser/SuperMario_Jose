@@ -6,17 +6,20 @@ public class GroundSensor : MonoBehaviour
  PlayerController _playerController;
  public BoxCollider2D[] _deathZone;
  public int jumpDamage = 3;
+ public ParticleSystem _landingParticle;
 
 void Awake()
 {
     _playerController = GetComponentInParent<PlayerController>();
     _deathZone = GameObject.Find("DeathZones").GetComponentsInChildren<BoxCollider2D>();
+    //_landingParticle = GetComponentInChildren<ParticleSystem>();
 }
  void OnTriggerEnter2D (Collider2D collision)
  {
     if(collision.gameObject.layer == 6)
     {
         isGrounded = true;
+        _landingParticle.Play();
     }
     if(collision.gameObject.layer == 7)
     {

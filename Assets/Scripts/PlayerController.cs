@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private bool _canShoot = false;
     private float _powerUpDuration = 10;
     private float _powerUpTimer;
+
+    public ParticleSystem _walkParticles;
     //private Coin _coin;
 
     void Awake()
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _boxCollider = GetComponent<BoxCollider2D>();
+        //_walkParticles = GetComponentInChildren<ParticleSystem>();
 
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _bgmManager = GameObject.Find("BGM Manager").GetComponent<BGMManager>();
@@ -99,15 +102,30 @@ public class PlayerController : MonoBehaviour
             //renderer.flipX = false;
             transform.rotation = Quaternion.Euler(0,0,0);
             animator.SetBool("IsRunning", true);
+            if(!_walkParticles.isPlaying && sensor.isGrounded)
+            {
+                _walkParticles.Play();
+            }
+
         }
         else if(moveDirection.x < 0)
         {
             transform.rotation = Quaternion.Euler(0,180,0);
             animator.SetBool("IsRunning", true);
+            _walkParticles.Play();
+            if(!_walkParticles.isPlaying && sensor.isGrounded)
+            {
+                _walkParticles.Play();
+            }
         }
         else
         {
             animator.SetBool("IsRunning", false);
+
+            if(_walkParticles.isPlaying && sensor.isGrounded)
+            {
+                _walkParticles.Stop();
+            }
         }
        
 
@@ -115,6 +133,7 @@ public class PlayerController : MonoBehaviour
         {
             rBody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             _audioSource.PlayOneShot(jump);
+            _walkParticles.Stop();
             
         }
         animator.SetBool("IsJumping", !sensor.isGrounded);
