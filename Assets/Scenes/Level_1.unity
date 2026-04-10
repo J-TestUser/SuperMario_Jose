@@ -6853,6 +6853,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 248200753427069719, guid: bea9d6ac9be13a4478acee2eb47b1b4d, type: 3}
   bulletSpawn: {fileID: 1487251715}
   attackHitbox: {fileID: 949227484}
+  _walkParticles: {fileID: 1358175534}
 --- !u!95 &231752739
 Animator:
   serializedVersion: 7
@@ -16555,6 +16556,7 @@ MonoBehaviour:
   isGrounded: 0
   _deathZone: []
   jumpDamage: 3
+  _landingParticle: {fileID: 1662069284}
 --- !u!1 &595017082
 GameObject:
   m_ObjectHideFlags: 0
@@ -51462,7 +51464,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -51520,7 +51522,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

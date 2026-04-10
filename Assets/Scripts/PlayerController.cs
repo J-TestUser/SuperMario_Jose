@@ -137,6 +137,10 @@ public class PlayerController : MonoBehaviour
             
         }
         animator.SetBool("IsJumping", !sensor.isGrounded);
+        if(!sensor.isGrounded && _walkParticles.isPlaying)
+        {
+            _walkParticles.Stop();
+        }
 
         if (shootAction.WasPressedThisFrame() && _canShoot)
         {
