@@ -558,6 +558,12 @@ MonoBehaviour:
   deadSFX: {fileID: 8300000, guid: 43825d338483d0149bbcc921d4af2f94, type: 3}
   movementSpeed: 4
   direction: 1
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  patrolIndex: 0
+  detectionRange: 5
+  attackRange: 1
 --- !u!95 &3824050504072345568
 Animator:
   serializedVersion: 7
